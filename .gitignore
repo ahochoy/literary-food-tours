@@ -1,0 +1,13 @@
+__pycache__/
+*.egg-info/
+.*.swp
+dist
+/test.py
+*.pickle
+screenshots/
+venv
+.idea
+.nicegui/
+*.sqlite*
+.DS_Store
+.env
