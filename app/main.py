@@ -29,4 +29,4 @@ def main():
 
     tour_container = ui.column().classes('w-full mt-4')
 
-ui.run(title='Literary Food Tour')
+ui.run(port=80, title='Literary Food Tour')
