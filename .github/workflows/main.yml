@@ -22,7 +22,7 @@ jobs:
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
             touch .env
-            echo BASE_URL=${{ secrets.GROQ_API_KEY }} >> .env
+            echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> .env
             docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }}
 
