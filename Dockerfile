@@ -1,6 +1,10 @@
 # Use the official NiceGUI image as the base image
 FROM amd64/python:3.13-slim
 
+# Set environment variables
+ARG DOTENV_KEY
+ENV DOTENV_KEY=$DOTENV_KEY
+
 # Set working directory
 WORKDIR /app
 

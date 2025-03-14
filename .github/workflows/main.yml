@@ -21,7 +21,7 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }}
+            docker build --build-arg DOTENV_KEY={{secrets.DOTENV_KEY}} -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }} .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }}
           env:
             DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
