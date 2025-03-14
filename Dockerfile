@@ -2,8 +2,8 @@
 FROM amd64/python:3.13-slim
 
 # Set environment variables
-ARG DOTENV_KEY
-ENV DOTENV_KEY=$DOTENV_KEY
+ARG KEY_ARG
+ENV DOTENV_KEY=$KEY_ARG
 
 # Set working directory
 WORKDIR /app
