@@ -34,5 +34,5 @@ jobs:
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
             name: ahlftapp
-            secure-environment-variables: DOTENV_KEY={{secrets.DOTENV_KEY}}
+            secure-environment-variables: DOTENV_KEY={{ secrets.DOTENV_KEY }}
             location: 'west us'
