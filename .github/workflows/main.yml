@@ -21,10 +21,10 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            touch .env
-            echo GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} >> .env
             docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }}
+          env:
+            DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
 
         - name: 'Deploy to Azure Container Instances'
           uses: 'azure/aci-deploy@v1'
