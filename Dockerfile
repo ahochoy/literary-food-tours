@@ -14,6 +14,9 @@ COPY requirements.txt .
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy environment variable vault to the container
+COPY .env.vault .
+
 # Copy the application code to the container
 COPY /app .
 
