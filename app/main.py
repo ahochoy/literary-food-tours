@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from nicegui import ui
-# from ai_foodie_planner import get_food_tour
+from ai_foodie_planner import get_food_tour
 
 @ui.page('/')
 def main():
@@ -16,11 +16,11 @@ def main():
         with tour_container:
             ui.spinner()
 
-        # tour_data = get_food_tour(character=character.value, cuisine=cuisine.value)
+        tour_data = get_food_tour(character=character.value, cuisine=cuisine.value)
 
-        # tour_container.clear()
-        # with tour_container:
-        #     ui.markdown(tour_data)
+        tour_container.clear()
+        with tour_container:
+            ui.markdown(tour_data)
 
     cuisine_options = ['Italian', 'Mexican', 'Chinese', 'Japanese', 'Indian', 'Thai', 'French', 'Greek', 'Mediterranean', 'American', 'Korean', 'Southern', 'BBQ']
 
