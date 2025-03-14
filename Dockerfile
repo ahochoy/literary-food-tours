@@ -1,5 +1,5 @@
 # Use the official NiceGUI image as the base image
-FROM python:3.9-slim
+FROM amd64/python:3.13-slim
 
 # Set working directory
 WORKDIR /app
