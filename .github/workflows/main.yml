@@ -21,7 +21,7 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build --build-arg KEY_ARG={{secrets.DOTENV_KEY}} -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }} .
+            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }} .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/ahlftapp:${{ github.sha }}
 
         - name: 'Deploy to Azure Container Instances'
@@ -34,4 +34,5 @@ jobs:
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
             name: ahlftapp
+            secure-environment-variables: DOTENV_KEY={{secrets.DOTENV_KEY}}
             location: 'west us'
