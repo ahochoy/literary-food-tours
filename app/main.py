@@ -17,6 +17,8 @@ def main():
         if (character.error or cuisine.error):
             with tour_container:
                 ui.label('Please enter a valid character and cuisine.')
+                ui.label(character.error).bind_visibility_from(character, 'error')
+                ui.label(cuisine.error).bind_visibility_from(cuisine, 'error')
             return
 
         tour_data = get_food_tour(character=character.value, cuisine=cuisine.value)
@@ -32,9 +34,9 @@ def main():
                     ui.label(restaurant.description)
                     with ui.row().classes('flex'):
                         for item in restaurant.menu_items:
-                            with ui.row().classes('flex items-center'):
+                            with ui.row().classes('flex items-center flex-nowrap'):
                                 ui.icon('favorite')
-                                ui.label(item)
+                                ui.label(item).classes('text-sm')
 
             ui.label(tour_data.conclusion).classes('text-lg mt-4')
 
@@ -49,8 +51,8 @@ def main():
         ui.checkbox('Dark Mode', on_change=lambda e: lft_logo.refresh(e.value)).bind_value(app.storage.user, 'dark_mode')
 
     with html.section().classes('w-full max-w-4xl mx-auto text-center p-10 border rounded-2xl'):
-        ui.label('Literary Food Tour').classes('w-full text-2xl font-bold mt-4')
-        ui.label('Plan a food tour for a literary character and decide what type of food you will eat.').classes('w-full text-lg mt-2')
+        ui.label('Lit Food Tours').classes('w-full text-2xl font-bold mt-4')
+        ui.label('Let AI plan a food tour for you and one of your favorite characters and on an imaginative culinary adventure!  What would Southern favorites would Sherlock Holmes enjoy? What about Hello Kitty on a Mexican vacation? Imagine Thor eating Thai?').classes('w-full text-lg mt-2')
 
         with ui.row().classes('flex pt-10'):
             character = ui.input(
@@ -66,13 +68,13 @@ def main():
             ).props('rounded outlined dense').classes('grow')
             ui.button(
                 'Let\'s Eat!', on_click=lambda: submit_form(character, cuisine)
-            ).props('rounded outline').classes('self-start').bind_enabled_from(character, 'value')
+            ).props('rounded outline').classes('self-start grow md:grow-0').bind_enabled_from(character, 'value')
 
-    tour_container = ui.column().classes('w-full mt-4 max-w-4xl mx-auto p-10 border border-stone-400 bg-stone-50 rounded-2xl')
+    tour_container = ui.column().classes('w-full mt-4 max-w-4xl mx-auto p-10 border rounded-2xl')
     tour_container.set_visibility(False)
 
     with html.footer().classes('mt-auto'):
-        ui.label('Made with Love - An Experiment by Andrew').classes('text-xs text-stone-400')
+        ui.label('Made with AI - An Experiment by Andrew').classes('text-xs text-stone-400')
 
 ui.run(
     port=80,
