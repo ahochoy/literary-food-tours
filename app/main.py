@@ -10,19 +10,19 @@ def main():
         tour_container.clear()
         tour_container.set_visibility(True)
 
+        with tour_container:
+            ui.spinner('dots')
+
         if (character.error or cuisine.error):
             with tour_container:
                 ui.label('Please enter a valid character and cuisine.')
             return
 
-        with tour_container:
-            ui.spinner()
-
         tour_data = get_food_tour(character=character.value, cuisine=cuisine.value)
 
         tour_container.clear()
         with tour_container:
-            ui.markdown(tour_data)
+            ui.code(content=tour_data.model_dump_json(), language='json').classes('w-full')
 
     cuisine_options = ['Italian', 'Mexican', 'Chinese', 'Japanese', 'Indian', 'Thai', 'French', 'Greek', 'Mediterranean', 'American', 'Korean', 'Southern', 'BBQ']
 

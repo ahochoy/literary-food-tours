@@ -1,9 +1,23 @@
 from dotenv_vault import load_dotenv
 from groq import Groq
+import instructor
+from pydantic import BaseModel
 
 load_dotenv()
 
 client = Groq();
+client = instructor.from_groq(client)
+
+class RestaurantInfo(BaseModel):
+    name: str
+    description: str
+    menu_items: list[str]
+
+class TourInfo(BaseModel):
+    title: str
+    introduction: str
+    conclusion: str
+    restaurants: list[RestaurantInfo]
 
 system_message = '''
 You are an avid reader and a foodie. You've always dreamed of going on imagined food tours with your favorite storybook characters.
@@ -29,8 +43,11 @@ def get_food_tour(character, cuisine):
                 {"role": "user", "content": f'You are planning a food tour for literary character {character} and want to eat {cuisine} food.'},
             ],
             temperature=1.0,
+            response_model=TourInfo
         )
+
+        print('AI completion:', ai_result)
     except Exception as e:
         print('Error requesting AI completion:', e)
 
-    return ai_result.choices[0].message.content
+    return ai_result
