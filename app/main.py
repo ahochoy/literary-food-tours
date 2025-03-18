@@ -22,7 +22,20 @@ def main():
 
         tour_container.clear()
         with tour_container:
-            ui.code(content=tour_data.model_dump_json(), language='json').classes('w-full')
+            ui.label(tour_data.title).classes('text-xl font-bold mt-4')
+            ui.label(tour_data.introduction).classes('text-lg mt-2 mb-4')
+
+            for restaurant in tour_data.restaurants:
+                with ui.card().classes('w-full no-shadow border'):
+                    ui.label(restaurant.name).classes('text-md font-bold')
+                    ui.label(restaurant.description)
+                    with ui.row().classes('flex'):
+                        for item in restaurant.menu_items:
+                            with ui.row().classes('flex items-center'):
+                                ui.icon('favorite')
+                                ui.label(item)
+
+            ui.label(tour_data.conclusion).classes('text-lg mt-4')
 
     cuisine_options = ['Italian', 'Mexican', 'Chinese', 'Japanese', 'Indian', 'Thai', 'French', 'Greek', 'Mediterranean', 'American', 'Korean', 'Southern', 'BBQ']
 
