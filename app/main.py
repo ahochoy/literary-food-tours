@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-from nicegui import ui, html
+import os
+from nicegui import ui, html, app
 from ai_foodie_planner import get_food_tour
 from assets.logo import lft_logo
 
@@ -41,12 +42,13 @@ def main():
 
     ui.query('.q-page').classes('flex')
     ui.query('.nicegui-content').classes('w-full')
+    ui.dark_mode().bind_value(app.storage.user, 'dark_mode')
 
+    with html.header().classes('w-full flex justify-between'):
+        lft_logo(app.storage.user['dark_mode'])
+        ui.checkbox('Dark Mode', on_change=lambda e: lft_logo.refresh(e.value)).bind_value(app.storage.user, 'dark_mode')
 
-    with html.header():
-        lft_logo().classes('max-w-xs')
-
-    with html.section().classes('w-full max-w-4xl mx-auto text-center p-10 border border-stone-400 bg-stone-50 rounded-2xl'):
+    with html.section().classes('w-full max-w-4xl mx-auto text-center p-10 border rounded-2xl'):
         ui.label('Literary Food Tour').classes('w-full text-2xl font-bold mt-4')
         ui.label('Plan a food tour for a literary character and decide what type of food you will eat.').classes('w-full text-lg mt-2')
 
@@ -54,14 +56,14 @@ def main():
             character = ui.input(
                 placeholder='Enter a character name',
                 validation=lambda value: 'Character name too short' if len(value) < 3 else None,
-            ).props('rounded outlined dense bg-color="white"').classes('grow')
+            ).props('rounded outlined dense').classes('grow')
             cuisine = ui.select(
                 options=cuisine_options,
                 value=cuisine_options[0],
                 with_input=True, 
                 new_value_mode='add-unique',
                 validation=lambda value: 'Cuisine should not be empty' if value is None else None,
-            ).props('rounded outlined dense bg-color="white"').classes('grow')
+            ).props('rounded outlined dense').classes('grow')
             ui.button(
                 'Let\'s Eat!', on_click=lambda: submit_form(character, cuisine)
             ).props('rounded outline').classes('self-start').bind_enabled_from(character, 'value')
@@ -72,4 +74,8 @@ def main():
     with html.footer().classes('mt-auto'):
         ui.label('Made with Love - An Experiment by Andrew').classes('text-xs text-stone-400')
 
-ui.run(port=80, title='Literary Food Tour')
+ui.run(
+    port=80,
+    title='Literary Food Tour',
+    storage_secret=os.environ['STORAGE_SECRET'],
+)
