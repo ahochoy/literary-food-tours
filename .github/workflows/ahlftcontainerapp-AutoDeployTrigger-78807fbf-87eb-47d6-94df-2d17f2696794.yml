@@ -1,0 +1,44 @@
+name: Trigger auto deployment for ahlftcontainerapp
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/ahlftcontainerapp-AutoDeployTrigger-78807fbf-87eb-47d6-94df-2d17f2696794.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AHLFTCONTAINERAPP_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: ahlftregistry.azurecr.io
+          registryUsername: ${{ secrets.AHLFTCONTAINERAPP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.AHLFTCONTAINERAPP_REGISTRY_PASSWORD }}
+          containerAppName: ahlftcontainerapp
+          resourceGroup: ahlftgroup
+          imageToBuild: ahlftregistry.azurecr.io/ahlftcontainerapp:${{ github.sha }}
+          
+            
+
+     
+
