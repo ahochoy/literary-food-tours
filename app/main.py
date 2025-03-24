@@ -78,7 +78,7 @@ def main():
         ui.label('Made with AI - An Experiment by Andrew').classes('text-xs text-stone-400')
 
 ui.run(
-    port=80,
+    port=8080,
     title='Literary Food Tour',
     storage_secret=os.environ['STORAGE_SECRET'],
 )
