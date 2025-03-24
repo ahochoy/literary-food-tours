@@ -52,7 +52,8 @@ def main():
 
     with html.section().classes('w-full max-w-4xl mx-auto text-center p-10 border rounded-2xl'):
         ui.label('Lit Food Tours').classes('w-full text-2xl font-bold mt-4')
-        ui.label('Let AI plan a food tour for you and one of your favorite characters and on an imaginative culinary adventure!  What would Southern favorites would Sherlock Holmes enjoy? What about Hello Kitty on a Mexican vacation? Imagine Thor eating Thai?').classes('w-full text-lg mt-2')
+        ui.label('Let AI plan a food tour for you and one of your favorite characters and go on an imaginative culinary adventure!').classes('w-full text-lg mt-2')
+        ui.label('What Southern favorites would Sherlock Holmes enjoy? What about Hello Kitty on a Mexican vacation? Imagine Thor eating Thai?').classes('w-full text-lg mt-2')
 
         with ui.row().classes('flex pt-10'):
             character = ui.input(
