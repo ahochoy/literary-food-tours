@@ -34,11 +34,7 @@ jobs:
           registryUrl: ahlftregistry.azurecr.io
           registryUsername: ${{ secrets.AHLFTCONTAINERAPP_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.AHLFTCONTAINERAPP_REGISTRY_PASSWORD }}
+          environmentVariables: DOTENV_KEY=secretref:dotenv-vault-key
           containerAppName: ahlftcontainerapp
           resourceGroup: ahlftgroup
           imageToBuild: ahlftregistry.azurecr.io/ahlftcontainerapp:${{ github.sha }}
-          
-            
-
-     
-
