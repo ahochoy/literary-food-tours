@@ -77,6 +77,18 @@ def main():
     with html.footer().classes('mt-auto'):
         ui.label('Made with AI - An Experiment by Andrew').classes('text-xs text-stone-400')
 
+ui.add_head_html('''
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJC1W1JEGJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-XJC1W1JEGJ');
+    </script>
+''')
+
 ui.run(
     port=8080,
     title='Literary Food Tour',
