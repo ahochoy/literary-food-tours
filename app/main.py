@@ -89,6 +89,8 @@ ui.add_head_html('''
     </script>
 ''')
 
+ui.add_head_html('<meta name="description" content="Fun AI experiment where you create imaginary food tours with your favorite characters!" />')
+
 ui.run(
     port=8080,
     title='Literary Food Tour',
